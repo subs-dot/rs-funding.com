@@ -58,7 +58,7 @@
     let current = 0;
 
     // Rough ceiling by monthly deposits, scaled by time in business. Illustrative only.
-    const DEP_CAP = { 'lt10': 0, '10-25': 25000, '25-75': 90000, '75-200': 250000, '200plus': 750000 };
+    const DEP_CAP = { 'lt10': 0, '10-25': 25000, '25-75': 90000, '75-200': 250000, '200-1m': 1000000, '1mplus': 3000000 };
     const TIB_MULT = { 'lt6': 0, '6-12': 0.6, '1-3': 0.85, '3plus': 1 };
 
     const show = (i, focus) => {
@@ -83,8 +83,8 @@
       const cta = $('#quizCta');
       let estimateLine = [];
       if (cap > 0) {
-        const est = Math.max(5000, Math.round(cap / 5000) * 5000);
-        const text = 'Up to ' + money(est) + (answers.dep === '200plus' ? '+' : '');
+        const est = Math.min(3000000, Math.max(10000, Math.round(cap / 5000) * 5000));
+        const text = 'Up to ' + money(est);
         label.textContent = 'You may qualify for';
         amount.textContent = text;
         amount.classList.remove('is-soft');
